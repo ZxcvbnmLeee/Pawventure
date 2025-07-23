@@ -3,7 +3,7 @@ html {
 }
 
 body {
-background-image: img ("Background.png"); 
+background-image: "Background.png"; 
 /* background-color: #ffc847; */
   padding: 50px ;
   margin: 0 auto;
