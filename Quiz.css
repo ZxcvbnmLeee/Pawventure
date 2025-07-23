@@ -1,57 +1,91 @@
-html {
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-size: 70%;
+  font-family: "Gloria Hallelujah", cursive;
 }
 
 body {
-background-image: url("frontpage.png");
-/* background-color: #ffc847; */
-  padding: 80px 0 ;
-  margin: 0 auto;
+  background-image: url("frontpage.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
   display: flex;
-  align-items: center;
   justify-content: center;
-/*   font-family: sans-serif;  text-align: center;   */
+  align-items: center;
+
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 70%;
+}
+
+.phone-container {
+  width: 400px;
+  height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center vertically */
+  align-items: center; /* center horizontally */
+  gap: 20px; /* space between children */
+  text-align: center;
+  overflow: hidden;
 }
 
 .wrapper-main {
-    width: 1000px;
-    padding: 0 20px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    align-items: center;
-} 
+  width: 1000px;
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+/* Common flex classes for centering */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 h1 {
   font-size: 50px;
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #333;
-    font-weight: 800;
-    text-align: center;
-    max-width: 70%;
-    margin: 0 auto;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #333;
+  font-weight: 800;
+  text-align: center;
+  width: 100%; /* use full width */
+  margin: 0; /* reset margins */
+  margin-bottom: 16px;
+  line-height: 1.1; /* tighter line height for better visual balance */
 }
 
 h2 {
-  font-size: 20px;
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #333;
-    font-weight: 400;
-    text-align: center;
-    max-width: 70%;
-    margin: 0 auto;
-
+  font-size: 16px;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #333;
+  font-weight: 400;
+  text-align: center;
+  margin: 0 24px;
+  width: auto;
+  line-height: 1.4;
 }
-
-h3 {
-  font-size: 20px;
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #333;
-    font-weight: 400;
-    text-align: center;
-    max-width: 70%;
-    margin: 0 auto;
-}
-
 
 /*=========*/
 /* BUTTONS */
@@ -63,11 +97,10 @@ h3 {
   font-style: normal;
 }
 
-
 .bigin-quiz-container {
   display: flex;
   justify-content: center; /* Horizontally center the button */
-  align-items: center;   /* Vertically center the button */
+  align-items: center; /* Vertically center the button */
 }
 
 #begin-quiz {
@@ -75,112 +108,134 @@ h3 {
   font-weight: 600;
   padding: 1rem 6rem;
   text-align: center;
-  border: 0.1rem solid #FFD989;
+  border: 0.1rem solid #ffd989;
   text-decoration: none;
-  font-family: 'Gloria Hallelujah', cursive;
-  color: #3B2921;
-  background-color: #FFD989;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #3b2921;
+  background-color: #ffd989;
   border-radius: 37px;
   margin: 0 auto;
 }
 
 #begin-quiz:hover {
   cursor: pointer;
-  background-color: #FFCD64;
+  background-color: #ffcd64;
   color: #fbfbfb;
   transform: none;
   transition: transform 150ms;
 }
 
-/* -- choice buttons -- */
+/* -- choice buttons container -- */
 .choices {
-    display: block;
-    align-items: center;
-    justify-content: center;
-    /*font-size: 18px;  font-weight: 600;*/
-    width: 500px;
-    height: 5rem;
-    text-align: center;
-    border: 0.1rem solid #FFD989;
-    margin:auto;
-    margin-bottom: 2rem;
-    /*text-decoration: none;*/
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #3B2921;
-    background-color: #FFD989;
-    border-radius: 37px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
 }
 
-.choices:hover {
-    cursor: pointer;
-    background-color: #FFCD64;
-    color: #fbfbfb;
-    transform: none;
-    transition: transform 150ms;
+/* Style for individual choice buttons created by JavaScript */
+.choice-button {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  min-height: 60px;
+  text-align: center;
+  border: 0.1rem solid #ffd989;
+  margin: 0;
+  text-decoration: none;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #3b2921;
+  background-color: #ffd989;
+  border-radius: 37px;
+  display: block;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+
+.choice-button:hover {
+  cursor: pointer;
+  background-color: #ffcd64;
+  color: #fbfbfb;
+  transform: none;
+  transition: transform 150ms;
 }
 
 /* -- back to home button -- */
-#back-to-home,.share-button {
-    font-size: 1.8rem;
-    font-weight: 600;
-    padding: 1rem;
-    width: 200px;
-    height: 45px;
-    text-align: center;
-    border: 0.1rem solid #FFD989;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #3B2921;
-    background-color: #FFD989;
-    border-radius: 37px;
-}
- 
-/* -- share button -- */
+#back-to-home,
 .share-button {
-    background-color:#FFD989;
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 1rem 6rem;
+  text-align: center;
+  border: 0.1rem solid #ffd989;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #3b2921;
+  background-color: #ffd989;
+  border-radius: 37px;
+  margin: 0 auto;
 }
 
-#back-to-home:hover,.share-button:hover {
-    background-color:#FFCD64;
-    border-color: #FFCD64;
-    color: #fbfbfb;
+/* -- share button -- */
+.share-button {
+  background-color: #ffd989;
+}
+
+.cover-image {
+  display: block;
+  margin: 16px auto; /* center image & add spacing */
+  width: 20vw; /* 20% of viewport width */
+  max-width: 100%; /* prevents overflow */
+  height: auto; /* maintain aspect ratio */
+}
+
+#back-to-home:hover,
+.share-button:hover {
+  background-color: #ffcd64;
+  border-color: #ffcd64;
+  color: #fbfbfb;
 }
 
 /* -- Add margin between the buttons -- */
 .share-button + #back-to-home {
-    margin-left: 20px;
-    align-items: center;
+  margin-left: 20px;
+  align-items: center;
 }
 
+/* Special background for quiz pages only */
+body.quiz-background {
+  background-image: url("frontpage.png");
+}
 
 #quiz {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 /*-- progress bar -- */
 
 #progress-container {
-  width: 100%; height: 12px;
+  width: 100%;
+  height: 12px;
   background-color: #eee;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border-radius: 5px;
-  /*overflow: hidden;*/
 }
 
 #progress-bar {
-  width: 0%; height: 100%;
+  width: 0%;
+  height: 100%;
   background-color: #ffb347;
-  /* transition: width 0.3s ease-in-out; */
-}
-
-#progress-text {
-  /*text-align: right;*/
-  font-size: 14px;
-  color: #555;
-  margin-top: 5px;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
 }
 
 /*-- question image -- */
@@ -189,5 +244,5 @@ h3 {
   max-width: 100%;
   height: auto;
   width: 200px;
-  margin-top: -20px;
+  margin-bottom: 16px;
 }
