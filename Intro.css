@@ -1,0 +1,89 @@
+html {
+  font-size: 70 %;
+}
+   
+body {
+background-image: url("https://static.vecteezy.com/system/resources/previews/011/871/605/original/holographic-iridescent-gradient-background-neon-abstract-vibrant-illustration-pink-and-blue-rainbow-pastel-wallpaper-vibrant-banner-vector.jpg");
+/* background-color: #ffc847; */
+  padding: 80px 0 ;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+/*   font-family: sans-serif;  text-align: center;   */
+}
+
+.wrapper-main {
+    width: 1000px;
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+h2 {
+  font-size: 20px;
+    font-family: 'Gloria Hallelujah', cursive;
+    color: #333;
+    font-weight: 400;
+    text-align: center;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+/*=========*/
+/* BUTTONS */
+/*=========*/
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.bigin-intro-container {
+  display: flex;
+  justify-content: center; /* Horizontally center the button */
+  align-items: center;   /* Vertically center the button */
+}
+
+#begin-intro {
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 1rem 6rem;
+  text-align: center;
+  border: 0.1rem solid #FFD989;
+  text-decoration: none;
+  font-family: 'Gloria Hallelujah', cursive;
+  color: #3B2921;
+  background-color: #FFD989;
+  border-radius: 37px;
+  margin: 0 auto;
+}
+
+#begin-intro:hover {
+  cursor: pointer;
+  background-color: #FFCD64;
+  color: #fbfbfb;
+  transform: none;
+  transition: transform 150ms;
+}
+
+
+/*===========*/
+/* UTILITIES */
+/*===========*/
+#intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*-- intro image -- */
+
+#intro-image {
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  margin-top: -20px;
+}
