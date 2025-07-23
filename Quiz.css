@@ -22,7 +22,7 @@ background-image: url("https://static.vecteezy.com/system/resources/previews/011
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 50px;
     font-family: 'Gloria Hallelujah', cursive;
     color: #333;
     font-weight: 800;
@@ -85,6 +85,7 @@ h3 {
   color: #3B2921;
   background-color: #FFD989;
   border-radius: 37px;
+  margin: 0 auto;
 }
 
 #begin-quiz:hover {
