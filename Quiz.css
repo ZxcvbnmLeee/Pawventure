@@ -5,7 +5,7 @@ html {
 body {
 background-image: url("https://static.vecteezy.com/system/resources/previews/011/871/605/original/holographic-iridescent-gradient-background-neon-abstract-vibrant-illustration-pink-and-blue-rainbow-pastel-wallpaper-vibrant-banner-vector.jpg");
 /* background-color: #ffc847; */
-  padding: 70px ;
+  padding: 100px ;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -66,13 +66,14 @@ h3 {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  margin: 0 auto;
 }
 
 .begin-quiz-container {
   display: flex;
   justify-content: center; /* Horizontally center the button */
-    align-items: center;   /* Vertically center the button */
-    margin: 0 auto;
+  align-items: center;   /* Vertically center the button */
+  margin: 0 auto;
 }
 
 #begin-quiz {
