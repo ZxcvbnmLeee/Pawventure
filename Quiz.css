@@ -63,40 +63,6 @@ h3 {
   font-style: normal;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.bigin-intro-container {
-  display: flex;
-  justify-content: center; /* Horizontally center the button */
-  align-items: center;   /* Vertically center the button */
-}
-
-#begin-intro {
-  font-size: 1.8rem;
-  font-weight: 600;
-  padding: 1rem 6rem;
-  text-align: center;
-  border: 0.1rem solid #FFD989;
-  text-decoration: none;
-  font-family: 'Gloria Hallelujah', cursive;
-  color: #3B2921;
-  background-color: #FFD989;
-  border-radius: 37px;
-  margin: 0 auto;
-}
-
-#begin-intro:hover {
-  cursor: pointer;
-  background-color: #FFCD64;
-  color: #fbfbfb;
-  transform: none;
-  transition: transform 150ms;
-}
-
 
 .bigin-quiz-container {
   display: flex;
@@ -187,14 +153,6 @@ h3 {
     align-items: center;
 }
 
-/*===========*/
-/* UTILITIES */
-/*===========*/
-#intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 #quiz {
   display: flex;
