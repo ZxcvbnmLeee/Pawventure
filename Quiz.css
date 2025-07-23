@@ -4,12 +4,12 @@ html {
 
 body {
   background-image: url("background.jpg");
-  padding: 50px ;
+  padding: 50 px ;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: sans-serif;  text-align: center;
+  /* font-family: sans-serif;  text-align: center; */
 }
 
 h1 {
