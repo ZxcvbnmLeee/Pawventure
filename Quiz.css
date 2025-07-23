@@ -1,18 +1,16 @@
 html {
-  font-size: 70%;
+  font-size: 70 %;
 }
 
 body {
-/*background-image: url("background.jpg"); */
+/*background-image: url("background.png"); */
   background-color: #ffc847; 
   padding: 50 px ;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: sans-serif;  text-align: center;  
-  git commit --allow-empty -m "Trigger rebuild"
-git push
+  font-family: verdana;  text-align: center;  
 }
 
 h1 {
