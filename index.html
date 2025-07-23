@@ -11,14 +11,43 @@
 </head>
   
 <body>
-  <!-- home page -->
   <div class="wrapper-main">  
+    <!-- home page -->
     <div id="home" class="flex-center flex-column">
-      <h1>Hello PawWorld!</h1>
+      <h1>The Great Pawventure</h1>
+      <h2>What kind of Pet Guardian Are You?</h2>
       <h3>
-        You're about to enter the Land of Floof
+        You're about to enter the Land of Floof - a cozy little island where every pet has a purpose, and every hooman is matched to their guardian role. Along the way, you'll meet curious critters, unexpected events, and some very fluffy dilemmas that help determine what kind of care-giver you are.
       </h3>
+      <p>
+        <!-- Cover Image* -->
+        <!-- <img src="coverimage.gif" style="max-width: 100%;"> -->
+         <img src="6.png" style="max-width: 80%;">
+      </p>
+      <div class="bigin-quiz-container">
+        <button id="begin-quiz">Let's go walkies</button>
+      </div>
     </div>
+
+    <!--Quiz page  -->
+    <div class="quiz-page" id="quiz-page" style="display: none;">
+      <div id="quiz" class="justify-center flex-column">
+        <!-- Quiz progress -->
+          <!-- <img id="question-progress-image" src="" > -->
+          <div id="progress-container">
+            <div id="progress-bar"></div>
+            <div id="progress-text">0%</div>
+         </div>
+
+        <!-- Quiz image,qn, choice-->
+        <img id="question-image" src="">
+        <h2 id="question">question</h2>
+        <div id="choices" class="choices">  </div>
+      </div>
+    </div>
+
+    <!-- Result page -->
+    
   </div>
 
 
