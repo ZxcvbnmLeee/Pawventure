@@ -10,11 +10,25 @@ background-color: #ffc847;
   display: flex;
   align-items: center;
   justify-content: center;
-font-family: sans-serif;  text-align: center;  
+/*   font-family: sans-serif;  text-align: center;   */
+}
+
+.wrapper-main {
+    width: 1000px;
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    align-items: center;
 }
 
 h1 {
-  color: #333;
+  font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-weight: 800;
+    text-align: center;
+    max-width: 70%;
+    margin: 0 auto;
 }
 
 /*=========*/
