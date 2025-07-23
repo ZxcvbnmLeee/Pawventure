@@ -23,7 +23,7 @@ background-color: #ffc847;
 
 h1 {
   font-size: 20px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Gloria Hallelujah', sans-serif;
     color: #333;
     font-weight: 800;
     text-align: center;
@@ -34,6 +34,12 @@ h1 {
 /*=========*/
 /* BUTTONS */
 /*=========*/
+
+.gloria-hallelujah-regular {
+  font-family: "Gloria Hallelujah", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .button-container {
   display: flex;
