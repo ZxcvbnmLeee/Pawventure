@@ -11,6 +11,8 @@ body {
   align-items: center;
   justify-content: center;
   font-family: sans-serif;  text-align: center;  
+  git commit --allow-empty -m "Trigger rebuild"
+git push
 }
 
 h1 {
