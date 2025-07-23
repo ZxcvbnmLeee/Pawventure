@@ -52,20 +52,6 @@ h3 {
     margin: 0 auto;
 }
 
-.image-holder {
-    position:absolute;
-    left: 50%; 
-    top: 50%;
-    max-width: 100%;
-    max-height: 100%;
-}
-
-.image-holder img 
-{
-    width: 100%;
-    margin-left: -50%;
-    margin-top: -50%;   
-}
 
 /*=========*/
 /* BUTTONS */
