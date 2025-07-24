@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap"
+      rel="stylesheet"
+    />
+    <title>Pawventure - Quiz</title>
+    <link rel="stylesheet" href="Quiz.css" />
+
+    <!-- Google tag -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-W0BT0S586R"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-W0BT0S586R");
+    </script>
+  </head>
+
+  <body class="quiz-background">
+    <div class="phone-container">
+      <!-- QUIZ PAGE -->
+      <div class="quiz-page" id="quiz-page">
+        <div id="quiz" class="justify-center flex-column">
+          <!-- Quiz progress -->
+          <div id="progress-container">
+            <div id="progress-bar"></div>
+          </div>
+
+          <!-- Quiz image, question, choices-->
+          <img id="question-image" src="" />
+          <h2 id="question" style="margin-bottom: 8px">Loading question...</h2>
+          <div id="choices" class="choices"></div>
+        </div>
+      </div>
+
+      <!-- RESULT PAGE -->
+      <div id="result-page" style="display: none">
+        <!-- Result content will go here when quiz is complete -->
+        <h1>Your Result!</h1>
+        <div id="result-content"></div>
+        <div class="bigin-quiz-container">
+          <button
+            style="margin-top: 20px"
+            id="back-to-home"
+            onclick="window.location.href='index.html'"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Only load script.js on the quiz page -->
+    <script src="script.js"></script>
+  </body>
+</html>
