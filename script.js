@@ -1,181 +1,210 @@
-console.log("Hello from JavaScript!");
+console.log("Script loaded!");
 
-function displayQuiz(){
-    const questions = [
-        // QUESTION 1 //
-        {
-            question: "You arrive at Floof Port to meet your travel companion. Who is it?",
-            choices: [
-                "A cheeky corgi with too much energy",
-                "A calm, sleepy cat that loves cuddles",
-                "A squeaky guinea pig in a pouch",
-                "I dont have one yet but Im looking to adopt",
-                "I came alone but love being around pets!"],
-            weights: [
-                {experienceScore: +2, mindsetScore: +1 }, // Weight for 1st choice
-                {experienceScore: +1, mindsetScore: +3 }, // Weight for 2nd choice
-                {experienceScore: +0, mindsetScore: +2 }, // Weight for 3rd choice
-                {experienceScore: +0, mindsetScore: +0 }, // Weight for 4th choice
-                {experienceScore: +0, mindsetScore: +3 }, // Weight for 5th choice
-                ]
-        },
-        // QUESTION 2 //
-        {
-            question: "You and your companion are off to the Floof Market. What’s the first thing you buy?",
-            choices: [
-                "Sparkly treats and snacks",
-                "A waterproof adventure jacket",
-                "A premium brush and shampoo set",
-                "A potion that says “Just In Case...”",
-                "A journal to record your memories"],
-            weights: [
-                {protectionScore: +0, mindsetScore: +1 }, // Weight for 1st choice
-                {protectionScore: +1, mindsetScore: +0 }, // Weight for 2nd choice
-                {protectionScore: +1, mindsetScore: +2 }, // Weight for 3rd choice
-                {protectionScore: +2, mindsetScore: +2 }, // Weight for 4th choice
-                {protectionScore: +0, mindsetScore: +3 }, // Weight for 5th choice
-                ]
-        },
-        // TO DO: add more qns //
-    ]
+// Wait for page to load before running
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM loaded, starting quiz...");
 
-    // variables for scores //
-    let currentQuestionIndex = 0;
-    let protectionScore = 0;    // low, medium, high            | weights +0,1,2
-    let budgetScore = 0;        // low, medium, high            | weights +0,1,2
-    let experienceScore = 0;    // new, moderate, experienced   | weights +0,1,2
-    let mindsetScore = 0;       // practical, playful, legacy, emotional    | weights +0,1,2,3
-    let contactScore =0;        // yes, maybe, no               | weights +0,1,2
+  const questions = [
+    // QUESTION 1 //
+    {
+      question:
+        "You arrive at Floof Port to meet your travel companion. Who is it?",
+      choices: [
+        "A cheeky corgi with too much energy",
+        "A calm, sleepy cat that loves cuddles",
+        "I dont have one yet but Im looking to adopt",
+        "I came alone but love being around pets!",
+      ],
+      weights: [
+        { experienceScore: +2, mindsetScore: +1 },
+        { experienceScore: +1, mindsetScore: +3 },
+        { experienceScore: +0, mindsetScore: +0 },
+        { experienceScore: +0, mindsetScore: +3 },
+      ],
+    },
+    // QUESTION 2 //
+    {
+      question:
+        "You and your companion are off to the Floof Market. What's the first thing you buy?",
+      choices: [
+        "Sparkly treats and snacks",
+        "A waterproof adventure jacket",
+        "A premium brush and shampoo set",
+        "A potion that says 'Just In Case...'",
+      ],
+      weights: [
+        { protectionScore: +0, mindsetScore: +1 },
+        { protectionScore: +1, mindsetScore: +0 },
+        { protectionScore: +1, mindsetScore: +2 },
+        { protectionScore: +2, mindsetScore: +2 },
+      ],
+    },
+    // Add your other 8 questions here...
+  ];
 
-    ////////////////////////////
-    // display question image //
-    ////////////////////////////
-    function displayQuestionImage(questionIndex){
-        const imageURLs = [
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",
-            "6.png",];
-        const questionImageElement = document.getElementById('question-image');
-        questionImageElement.src = imageURLs[questionIndex];
+  // variables for scores
+  let currentQuestionIndex = 0;
+  let protectionScore = 0;
+  let budgetScore = 0;
+  let experienceScore = 0;
+  let mindsetScore = 0;
+  let contactScore = 0;
+
+  // Display question image
+  function displayQuestionImage(questionIndex) {
+    const imageURLs = [
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+      "6.png",
+    ];
+    const questionImageElement = document.getElementById("question-image");
+    if (questionImageElement) {
+      questionImageElement.src = imageURLs[questionIndex];
+    }
+  }
+
+  // Update progress bar
+  function updateProgressBar() {
+    const progress = (currentQuestionIndex / questions.length) * 100;
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    if (progressBar) {
+      progressBar.style.width = progress + "%";
+    }
+    if (progressText) {
+      progressText.innerText = Math.round(progress) + "%";
+    }
+  }
+
+  // Display current question and choices
+  function displayCurrentQuestion() {
+    console.log("Displaying question", currentQuestionIndex);
+
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionElement = document.getElementById("question");
+    const choiceContainers = document.getElementById("choices");
+
+    if (!questionElement || !choiceContainers) {
+      console.error("Could not find question or choices elements!");
+      return;
     }
 
-    ///////////////////////////////
-    // Event - begin quiz button //
-    ///////////////////////////////
+    // Clear previous choices
+    choiceContainers.innerHTML = "";
 
-    document.getElementById('begin-quiz').addEventListener('click', function() {
-        document.getElementById('home').style.display = 'none';
-        document.getElementById('quiz-page').style.display = 'block';
+    // Set question text
+    questionElement.textContent = currentQuestion.question;
+
+    // Update progress
+    updateProgressBar();
+
+    // Display question image
+    displayQuestionImage(currentQuestionIndex);
+
+    // Create choice buttons
+    currentQuestion.choices.forEach((choice, index) => {
+      const button = document.createElement("button");
+      button.textContent = choice;
+      button.classList.add("choice-button");
+      button.addEventListener("click", () => handleChoiceClick(index));
+      choiceContainers.appendChild(button);
     });
 
-    ////////////////////////////////////////////////////////
-    // Function to display the current question & choices // - copied, not fully checked
-    ////////////////////////////////////////////////////////
-     function displayCurrentQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        const questionElement = document.getElementById('question');
-        // const progressImageElement = document.getElementById('question-progress-image');
-        const choiceContainers = document.getElementById('choices');
-        
-        choiceContainers.innerHTML = '';
-        
-        questionElement.textContent = currentQuestion.question;
-        // progressImageElement.src = getQuestionProgressImage(currentQuestionIndex);
-        updateProgressBar();
+    console.log(
+      "Question displayed, buttons created:",
+      choiceContainers.children.length
+    );
+  }
 
-        displayQuestionImage(currentQuestionIndex);
+  // Handle choice click
+  function handleChoiceClick(choiceIndex) {
+    console.log("Choice clicked:", choiceIndex);
 
-        currentQuestion.choices.forEach((choice, index) => {
-            //Buttons for choices
-            const button = document.createElement('button');
-            button.textContent = choice;
-            button.classList.add('choices');
-            button.addEventListener('click', () => handleChoiceClick(index));
-            choiceContainers.appendChild(button);
-        });
-        }
+    // Update scores based on user response
+    const currentQuestion = questions[currentQuestionIndex];
+    const selectedChoiceWeight = currentQuestion.weights[choiceIndex];
 
-
-    //////////////////////////////////
-    // Function to get progress bar //
-    //////////////////////////////////
-
-    // TO DO: update inside showQuestion() or displayCurrentQuestion()
-    function updateProgressBar() {
-        const progress = ((currentQuestion) / questions.length) * 100;
-        document.getElementById("progress-bar").style.width = progress +"%";
-        document.getElementById("progress-text").innerText = Math.round(progress) + "%";
+    // Update scores
+    if (selectedChoiceWeight.hasOwnProperty("protectionScore")) {
+      protectionScore += selectedChoiceWeight.protectionScore;
+    }
+    if (selectedChoiceWeight.hasOwnProperty("budgetScore")) {
+      budgetScore += selectedChoiceWeight.budgetScore;
+    }
+    if (selectedChoiceWeight.hasOwnProperty("experienceScore")) {
+      experienceScore += selectedChoiceWeight.experienceScore;
+    }
+    if (selectedChoiceWeight.hasOwnProperty("mindsetScore")) {
+      mindsetScore += selectedChoiceWeight.mindsetScore;
+    }
+    if (selectedChoiceWeight.hasOwnProperty("contactScore")) {
+      contactScore += selectedChoiceWeight.contactScore;
     }
 
-    /////////////////////////////////////
-    // Function to handle choice click // - copied, not fully checked
-    /////////////////////////////////////
-    function handleChoiceClick(choiceIndex) {
-        // Update scores based on user response
-        const currentQuestion = questions[currentQuestionIndex];
-        const selectedChoiceWeight = currentQuestion.weights[choiceIndex];
-        console.log("Selected choice weight:", selectedChoiceWeight);
+    // Move to next question
+    currentQuestionIndex++;
 
-            //Update scores based on weight of selected choice
-            if (selectedChoiceWeight.hasOwnProperty('protectionScore')) {
-                protectionScore += selectedChoiceWeight.protectionScore;
-            }
-            if (selectedChoiceWeight.hasOwnProperty('budgetScore')) {
-                budgetScore += selectedChoiceWeight.budgetScore;
-            }
-            if (selectedChoiceWeight.hasOwnProperty('experienceScore')) {
-                experienceScore += selectedChoiceWeight.experienceScore;
-            }
-            if (selectedChoiceWeight.hasOwnProperty('mindsetScore')) {
-                mindsetScore += selectedChoiceWeight.mindsetScore;
-            }
-            if (selectedChoiceWeight.hasOwnProperty('contactScore')) {
-                contactScore += selectedChoiceWeight.contactScore;
-            }
-
-        //Move to the next question
-        currentQuestionIndex++;
-
-        if (currentQuestionIndex < questions.length) {
-            displayCurrentQuestion();
-        } else {
-            calculateAndDisplayResult();
-        }
+    if (currentQuestionIndex < questions.length) {
+      displayCurrentQuestion();
+    } else {
+      calculateAndDisplayResult();
     }
+  }
 
-    ////////////////////////////////////////////
-    // Function to calculate & display result //
-    ////////////////////////////////////////////
-    function calculateAndDisplayResult(){
-        alert("eheheheh under construction");
-    }
-
-    /////////////////////////////////////////////////////
-    // Event - display the 1st qn when the quiz starts //
-    /////////////////////////////////////////////////////
-    displayCurrentQuestion();
-    document.addEventListener('DOMContentLoaded', () => {
-        const choiceContainers = document.querySelectorAll('.choice-container');
-            choiceContainers.forEach((container) => {
-                const choices = container.querySelectorAll('button');
-                choices.forEach((choice, choiceIndex) => {
-                    choice.addEventListener('click', () => {
-                    handleChoiceClick(choiceIndex);
-                    });
-                });
-            });
+  // Calculate and display result
+  function calculateAndDisplayResult() {
+    console.log("Quiz completed!");
+    console.log("Scores:", {
+      protectionScore,
+      budgetScore,
+      experienceScore,
+      mindsetScore,
+      contactScore,
     });
 
-}
+    // Hide quiz page, show result page
+    const quizPage = document.getElementById("quiz-page");
+    const resultPage = document.getElementById("result-page");
 
+    if (quizPage) quizPage.style.display = "none";
+    if (resultPage) resultPage.style.display = "block";
 
+    // Determine which result image to show based on scores
+    let resultImage = "";
 
-// Start the quiz
-displayQuiz();
+    // Logic to determine personality based on highest scores
+    if (mindsetScore >= 4) {
+      if (experienceScore >= 2) {
+        resultImage = "GreenBackground.png"; // The Experienced Emotional Guardian
+      } else {
+        resultImage = "GreenBackground.png"; // The Loving Beginner
+      }
+    } else if (protectionScore >= 2) {
+      resultImage = "GreenBackground.png"; // The Practical Protector
+    } else if (experienceScore >= 2) {
+      resultImage = "GreenBackground.png"; // The Confident Caretaker
+    } else {
+      resultImage = "GreenBackground.png"; // The Thoughtful Explorer
+    }
+
+    // Display result image
+    const resultContent = document.getElementById("result-content");
+    if (resultContent) {
+      resultContent.innerHTML = `
+        <img src="${resultImage}" class="cover-image" alt="Your Result" />
+      `;
+    }
+  }
+
+  // Start the quiz automatically when page loads
+  console.log("Starting first question...");
+  displayCurrentQuestion();
+});
