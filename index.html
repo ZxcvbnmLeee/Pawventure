@@ -1,83 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Pawventure</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Quiz.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
-  <title>Pawventure</title>
-  <link rel="stylesheet" href="Quiz.css">
-  <!-- Google tag? -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0BT0S586R"></script>
-  <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Google tag -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-W0BT0S586R"
+    ></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-W0BT0S586R");
+    </script>
+  </head>
 
-      gtag('config', 'G-W0BT0S586R');
-  </script>
-</head>
-  
-<body>
-  <div class="wrapper-main">  
-    
-<!-- home page -->
-    <div id="home" class="flex-center flex-column">
-      <h1>Pawventure</h1>
-      <h2>Paws up! Your Adventure Begins Now!</h2>
-      <h3>
-        Potions, Paws & Personality. Uncover your Pawrent type with a sprinkle of stardust!
-      </h3>
-      <p>
-        <!-- Cover Image* -->
-        <!-- <img src="coverimage.gif" style="max-width: 100%;"> -->
-        <div style="text-align: center;">
-          <img src="LandofFloof.gif">
+  <body>
+    <div class="phone-container">
+      <!-- HOME PAGE -->
+      <div id="home" class="flex-center flex-column">
+        <h1>Pawventure</h1>
+        <h2>Paws up! Your Adventure Begins Now!</h2>
+        <h2>
+          Potions, Paws & Personality. Uncover your Pawrent type with a sprinkle
+          of stardust!
+        </h2>
+        <div class="bigin-quiz-container">
+          <a href="intro.html">
+            <button id="begin-quiz" style="margin-top: 24px">
+              Let's Go Walkies
+            </button>
+          </a>
         </div>
-      </p>
-      <div class="bigin-quiz-container">
-        <button id="begin-quiz">Let's Go Walkies</button>
       </div>
     </div>
-
-    <!--Introduction page  -->
-<!--  <div class="intro-page" id="intro-page" style="display: none;"> -->
-<!--         <div id="intro" class="justify-center flex-column"> -->
-<!--       <h2>You're about to enter the Land of Floof! A cozy little island where every pet has a purpose, and every hooman is matched to their guardian role. Along the way, you'll meet curious critters, unexpected events, and some very fluffy dilemmas that help determine what kind of care-giver you are. -->
-<!--       </h2> -->
-<!--       <p> -->
-<!--          <img src="LandofFloof.gif"> -->
-<!--       </p> -->
-<!--       <div class="bigin-intro-container"> -->
-<!--         <button id="begin-intro">Let's Paw-ceed!</button> -->
-<!--       </div> -->
-<!--     </div>   -->
-    
-    <!--Quiz page  -->
-    <div class="quiz-page" id="quiz-page" style="display: none;">
-      <div id="quiz" class="justify-center flex-column">
-        <!-- Quiz progress -->
-          <!-- <img id="question-progress-image" src="" > -->
-          <div id="progress-container">
-            <div id="progress-bar"></div>
-            <div id="progress-text">0%</div>
-         </div>
-
-        <!-- Quiz image,qn, choice-->
-        <img id="question-image" src="">
-        <h2 id="question">question</h2>
-        <div id="choices" class="choices">  </div>
-      </div>
-    </div>
-
-    <!-- Result page -->
-    
-  </div>
-
-
-  <script src="script.js"></script>
-</body>
-  
+  </body>
 </html>
