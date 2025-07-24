@@ -289,7 +289,30 @@ function displayQuiz(){
     // Function to calculate & display result //
     ////////////////////////////////////////////
     function calculateAndDisplayResult(){
-        alert("eheheheh under construction");
+        let resultImage = "";
+
+        // Example logic based on scoring model
+        if (mindsetScore >= 4) {
+            if (experienceScore >= 2) {
+                resultImage = "6.png"; // The Experienced Emotional Guardian
+            } else {
+                resultImage = "6.png"; // The Loving Beginner
+            }
+        } else if (protectionScore >= 2) {
+            resultImage = "6.png"; // The Practical Protector
+        } else if (experienceScore >= 2) {
+            resultImage = "6.png"; // The Confident Caretaker
+        } else {
+            resultImage = "6.png"; // The Thoughtful Explorer
+        }
+
+        // Inject image into result section
+        const resultImageDiv = document.getElementById("result-image");
+        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" alt="Your Persona Result" style="max-width: 100%;">`;
+
+        // Hide the quiz page, show the results page
+        document.getElementById("quiz-page").style.display = "none";
+        document.getElementById("results").style.display = "block";
     }
 
     function getResultImageUrl(resultScores){
