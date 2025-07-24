@@ -34,7 +34,7 @@
         <!-- Cover Image* -->
         <!-- <img src="coverimage.gif" style="max-width: 100%;"> -->
         <div style="text-align: center;">
-          <img src="LandofFloof.gif">
+          <img src="./images/LandofFloof.gif" alt="Land of Floof">
         </div>
       </p>
       <div class="bigin-quiz-container">
@@ -59,24 +59,42 @@
     <div class="quiz-page" id="quiz-page" style="display: none;">
       <div id="quiz" class="justify-center flex-column">
         <!-- Quiz progress -->
-          <!-- <img id="question-progress-image" src="" > -->
+          <img id="question-progress-image" src="" >
+          <!--
           <div id="progress-container">
             <div id="progress-bar"></div>
             <div id="progress-text">0%</div>
-         </div>
+          </div>
+          -->
 
         <!-- Quiz image,qn, choice-->
         <img id="question-image" src="">
         <h2 id="question">question</h2>
-        <div id="choices" class="choices">  </div>
+        <div id="choices" class="choices">  
+          
+          </div>
+
       </div>
     </div>
 
     <!-- Result page -->
-    
+    <div id="results" style="display: none;">
+      <h1>You are ...</h1>
+      <div id="result-image"> </div>  
+      <div>
+        <p2>Hold to save image!</p2>
+      </div>  
+      <div class="button-container">
+        <button class="share-button">Share Quiz!</button>
+        <button id="back-to-home">Back to Home</button>
+      </div>
+      <footer>
+        Made for fun!
+      </footer>
+    </div>
+
+
   </div>
-
-
   <script src="script.js"></script>
 </body>
   
