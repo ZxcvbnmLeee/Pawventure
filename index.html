@@ -9,6 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
   <title>Pawventure</title>
   <link rel="stylesheet" href="Quiz.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <!-- Google tag? -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0BT0S586R"></script>
   <script>
@@ -21,24 +25,27 @@
 </head>
   
 <body>
-  <div class="wrapper-main">  
+  <div class="phone-container">  
     
-<!-- home page -->
+    <!-- home page -->
     <div id="home" class="flex-center flex-column">
       <h1>Pawventure</h1>
       <h2>Paws up! Your Adventure Begins Now!</h2>
-      <h3>
+      <h2>
         Potions, Paws & Personality. Uncover your Pawrent type with a sprinkle of stardust!
-      </h3>
+      </h2>
+      <!-- Cover Image* -->
+       <!--
       <p>
-        <!-- Cover Image* -->
-        <!-- <img src="coverimage.gif" style="max-width: 100%;"> -->
         <div style="text-align: center;">
-          <img src="./images/LandofFloof.gif" alt="Land of Floof">
+          <img src="./images/LandofFloof.gif" alt="Land of Floof" style ="max-width: 100%;">
         </div>
       </p>
-      <div class="bigin-quiz-container">
-        <button id="begin-quiz">Let's Go Walkies</button>
+      -->
+
+      <div class="begin-quiz-container">
+        <!-- Merger: intro html -->
+        <button id="begin-quiz" style="margin-top: 24px">Let's Go Walkies</button>
       </div>
     </div>
 
@@ -59,13 +66,11 @@
     <div class="quiz-page" id="quiz-page" style="display: none;">
       <div id="quiz" class="justify-center flex-column">
         <!-- Quiz progress -->
-          <img id="question-progress-image" src="" >
-          <!--
+          <!-- <img id="question-progress-image" src="" > -->
           <div id="progress-container">
             <div id="progress-bar"></div>
             <div id="progress-text">0%</div>
           </div>
-          -->
 
         <!-- Quiz image,qn, choice-->
         <img id="question-image" src="">
@@ -78,15 +83,16 @@
     </div>
 
     <!-- Result page -->
-    <div id="results" style="display: none;">
-      <h1>You are ...</h1>
+    <div id="result-page" style="display: none;">
+      <h1>Your Result!</h1>
       <div id="result-image"> </div>  
       <div>
         <p2>Hold to save image!</p2>
       </div>  
       <div class="button-container">
         <button class="share-button">Share Quiz!</button>
-        <button id="back-to-home">Back to Home</button>
+        <button id="back-to-home" 
+          onclick="window.location.href='index.html'">Back to Home</button>
       </div>
       <footer>
         Made for fun!
