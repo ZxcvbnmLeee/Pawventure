@@ -1,4 +1,9 @@
-console.log("Hello from JavaScript!");
+console.log("Script loaded! :)");
+
+// Wait for page to load before running
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM loaded, starting quiz...");
+})
 
 function displayQuiz(){
     const questions = [
@@ -172,59 +177,24 @@ function displayQuiz(){
     function displayQuestionImage(questionIndex){
         const imageURLs = [
             "./images/1_FloofPort.png",
-            "./images/2_Floof Market_1.png",
-            "./images/3_sneezing sparkles.png",
-            "./images/4_Floof Fortune Teller.png",
-            "./images/5_Olympics_1.png",
-            "./images/6.png",
-            "./images/7_pettalk.png",
+            "./images/2_floofmarket.png",
+            "./images/3_sneezing.png",
+            "./images/4_fortuneteller.png",
+            "./images/5_sportsday.png",
+            "./images/6_charmproof.png",
+            "./images/7_talkingpet.png",
             "./images/8_storm.png",
-            "./images/9_scrollBird.png",
-            "./images/10_rainbow.png",];
+            "./images/9_talkingbird.png",
+            "./images/10_end.png",];
         const questionImageElement = document.getElementById('question-image');
-        questionImageElement.src = imageURLs[questionIndex];
+        if (questionImageElement) {questionImageElement.src = imageURLs[questionIndex];}
     }
-
-    ///////////////////////////////
-    // Event - begin quiz button //
-    ///////////////////////////////
-
-    document.getElementById('begin-quiz').addEventListener('click', function() {
-        document.getElementById('home').style.display = 'none';
-        document.getElementById('quiz-page').style.display = 'block';
-    });
-
-    ////////////////////////////////////////////////////////
-    // Function to display the current question & choices // - copied, not fully checked
-    ////////////////////////////////////////////////////////
-     function displayCurrentQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        const questionElement = document.getElementById('question');
-        const progressImageElement = document.getElementById('question-progress-image');
-        const choiceContainers = document.getElementById('choices');
-        
-        choiceContainers.innerHTML = '';
-        
-        questionElement.textContent = currentQuestion.question;
-        progressImageElement.src = getQuestionProgressImage(currentQuestionIndex);
-        //updateProgressBar();
-
-        displayQuestionImage(currentQuestionIndex);
-
-        currentQuestion.choices.forEach((choice, index) => {
-            // Buttons for choices //
-            const button = document.createElement('button');
-            button.textContent = choice;
-            button.classList.add('choices');
-            button.addEventListener('click', () => handleChoiceClick(index));
-            choiceContainers.appendChild(button);
-        });
-    }
-
 
     //////////////////////////////////
     // Function to get progress bar //
     //////////////////////////////////
+    
+    // not needed? 
     function getQuestionProgressImage(questionIndex) {
         const progressImageURLs = [
             "./images/progress_0.png",
@@ -241,18 +211,75 @@ function displayQuiz(){
         ];
         return progressImageURLs[questionIndex] || "";
     }
+        
 
-    // TO DO: update inside showQuestion() or displayCurrentQuestion() - not used
+    // update progress bar //
     function updateProgressBar() {
-        const progress = ((currentQuestion) / questions.length) * 100;
-        document.getElementById("progress-bar").style.width = progress +"%";
-        document.getElementById("progress-text").innerText = Math.round(progress) + "%";
+        const progress = (currentQuestionIndex / questions.length) * 100;
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
+
+        if (progressBar) {progressBar.style.width = progress + "%";}
+        if (progressText) {progressText.innerText = Math.round(progress) + "%";}
     }
+
+    ///////////////////////////////
+    // Event - begin quiz button //
+    ///////////////////////////////
+
+    document.getElementById('begin-quiz').addEventListener('click', function() {
+        document.getElementById('home').style.display = 'none';
+        document.getElementById('quiz-page').style.display = 'block';
+    });
+
+    ////////////////////////////////////////////////////////
+    // Function to display the current question & choices // - copied, not fully checked
+    ////////////////////////////////////////////////////////
+
+    function displayCurrentQuestion() {
+        console.log("Displaying question:", currentQuestionIndex);
+
+        const currentQuestion = questions[currentQuestionIndex];
+        const questionElement = document.getElementById('question');
+        // const progressImageElement = document.getElementById('question-progress-image');
+        const choiceContainers = document.getElementById('choices');
+        
+        if (!questionElement || !choiceContainers) {
+            console.error("Could not find question or choices elements!");
+            return;}
+
+        // Clear previous choices //
+        choiceContainers.innerHTML = '';
+        
+        // Set qn text
+        questionElement.textContent = currentQuestion.question;
+
+        //progressImageElement.src = getQuestionProgressImage(currentQuestionIndex);
+        updateProgressBar();
+
+        displayQuestionImage(currentQuestionIndex);
+
+        currentQuestion.choices.forEach((choice, index) => {
+            // Buttons for choices //
+            const button = document.createElement('button');
+            button.textContent = choice;
+            button.classList.add('choice-button');
+            button.addEventListener('click', () => handleChoiceClick(index));
+            choiceContainers.appendChild(button);
+        });
+
+        console.log("Question displayed, buttons created:",
+            choiceContainers.children.length);
+
+    }
+
+
 
     /////////////////////////////////////
     // Function to handle choice click // - copied, not fully checked
     /////////////////////////////////////
     function handleChoiceClick(choiceIndex) {
+        console.log("Choice clicked:", choiceIndex);
         // Update scores based on user response
         const currentQuestion = questions[currentQuestionIndex];
         const selectedChoiceWeight = currentQuestion.weights[choiceIndex];
@@ -280,45 +307,54 @@ function displayQuiz(){
 
         if (currentQuestionIndex < questions.length) {
             displayCurrentQuestion();
-        } else {
-            calculateAndDisplayResult();
-        }
+        } else {calculateAndDisplayResult();}
     }
 
     ////////////////////////////////////////////
-    // Function to calculate & display result //
+    // Function to calculate & display result // ---------- I stopped here!
     ////////////////////////////////////////////
     function calculateAndDisplayResult(){
-        let resultImage = "";
+        console.log("Quiz completed!");
+        console.log("Scores:", {
+            protectionScore,
+            budgetScore,
+            experienceScore,
+            mindsetScore,
+            contactScore,
+        });
 
-        // Example logic based on scoring model
-        if (mindsetScore >= 4) {
-            if (experienceScore >= 2) {
-                resultImage = "6.png"; // The Experienced Emotional Guardian
-            } else {
-                resultImage = "6.png"; // The Loving Beginner
-            }
-        } else if (protectionScore >= 2) {
-            resultImage = "6.png"; // The Practical Protector
-        } else if (experienceScore >= 2) {
-            resultImage = "6.png"; // The Confident Caretaker
+
+        // Scoring system //
+        let resultImage = "";
+        if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 4 && mindsetScore <= 6 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+            resultImage = "R1.png"; // Prepared Pawrent
+        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 0 && experienceScore <= 3 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+            resultImage = "R2.png"; // Curious Newbie
+        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 0 && budgetScore <= 2 && contactScore === 2) {
+            resultImage = "R3.png"; // Spoil-Me Specialist
+        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 0 && mindsetScore <= 3 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+            resultImage = "R4.png"; // Zen Guardian
+        } else if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 13 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+            resultImage = "R5.png"; // Analyzer
+        } else if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+            resultImage = "R6.png"; // Legacy Protector
+        } else if (protectionScore <= 5 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 4 && mindsetScore <= 6 && budgetScore >= 5 && contactScore === 0) {
+            resultImage = "R7.png"; // Budget Boss
+        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 13 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+            resultImage = "R8.png"; // Memory Maker
         } else {
-            resultImage = "6.png"; // The Thoughtful Explorer
+            resultImage = "R9.png"; // Bubble Closeter (fallback)
         }
 
         // Inject image into result section
         const resultImageDiv = document.getElementById("result-image");
-        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" alt="Your Persona Result" style="max-width: 100%;">`;
+        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" class="cover-image" alt="Your Persona Result" style="max-width: 100%;">`;
 
         // Hide the quiz page, show the results page
         document.getElementById("quiz-page").style.display = "none";
-        document.getElementById("results").style.display = "block";
+        document.getElementById("result-page").style.display = "block";
     }
 
-    function getResultImageUrl(resultScores){
-        alert("result image under construction");
-
-    }
 
     /////////////////////////////////////////////////////
     // Event - display the 1st qn when the quiz starts //
