@@ -10,10 +10,14 @@
   <title>Pawventure</title>
   <link rel="stylesheet" href="Quiz.css">
 
+  <script>
+    if (window.top !== window.self) {
+      window.top.location = window.self.location.href;}
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <!-- Google tag? -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W0BT0S586R"></script>
   <script>
       window.dataLayer = window.dataLayer || [];
@@ -45,22 +49,27 @@
 
       <div class="begin-quiz-container">
         <!-- Merger: intro html -->
-        <button id="begin-quiz" style="margin-top: 24px">Let's Go Walkies</button>
+        <button id="begin-intro" style="margin-top: 24px">Let's Go Walkies</button>
       </div>
     </div>
 
     <!--Introduction page  -->
-<!--  <div class="intro-page" id="intro-page" style="display: none;"> -->
-<!--         <div id="intro" class="justify-center flex-column"> -->
-<!--       <h2>You're about to enter the Land of Floof! A cozy little island where every pet has a purpose, and every hooman is matched to their guardian role. Along the way, you'll meet curious critters, unexpected events, and some very fluffy dilemmas that help determine what kind of care-giver you are. -->
-<!--       </h2> -->
-<!--       <p> -->
-<!--          <img src="LandofFloof.gif"> -->
-<!--       </p> -->
-<!--       <div class="bigin-intro-container"> -->
-<!--         <button id="begin-intro">Let's Paw-ceed!</button> -->
-<!--       </div> -->
-<!--     </div>   -->
+    <div class="intro-page" id="intro-page" style="display: none;"> 
+      <div id="intro" class="justify-center flex-column"> 
+        <h1>Pawventure</h1>
+        <h2>You're about to enter the Land of Floof!</h2>
+        <h2>
+          A cozy little island where every pet has a purpose, and every hooman
+          is matched to their guardian role.
+        </h2> 
+        <p> 
+          <img src="./images/LandofFloof.gif" class="cover-image" alt="Cover Image"> 
+        </p> 
+        <div class="begin-quiz-container"> 
+          <button id="begin-quiz" style="margin-top: 24px">Let's Paw-ceed!</button> 
+        </div> 
+      </div>   
+    </div>
     
     <!--Quiz page  -->
     <div class="quiz-page" id="quiz-page" style="display: none;">
@@ -74,10 +83,10 @@
 
         <!-- Quiz image,qn, choice-->
         <img id="question-image" src="">
-        <h2 id="question">question</h2>
+        <h2 id="question" style="margin-bottom: 8px">Loading question...</h2>
         <div id="choices" class="choices">  
           
-          </div>
+        </div>
 
       </div>
     </div>
@@ -92,7 +101,7 @@
       <div class="button-container">
         <button class="share-button">Share Quiz!</button>
         <button id="back-to-home" 
-          onclick="window.location.href='index.html'">Back to Home</button>
+          onclick="window.location.href='index.html'">Try Again</button>
       </div>
       <footer>
         Made for fun!
