@@ -1,4 +1,4 @@
-console.log("Script loaded! :)");
+console.log("Script loaded!");
 
 // Wait for page to load before running
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,14 +14,12 @@ function displayQuiz(){
                 "A cheeky corgi with too much energy",
                 "A calm, sleepy cat that loves cuddles",
                 "A squeaky guinea pig in a pouch",
-                "I dont have one yet but Im looking to adopt",
-                "I came alone but love being around pets!"],
+                "I dont have one yet but Im looking to adopt"],
             weights: [
                 {experienceScore: +2, mindsetScore: +1 }, // Weight for 1st choice
                 {experienceScore: +1, mindsetScore: +3 }, // Weight for 2nd choice
                 {experienceScore: +0, mindsetScore: +2 }, // Weight for 3rd choice
                 {experienceScore: +0, mindsetScore: +0 }, // Weight for 4th choice
-                {experienceScore: +0, mindsetScore: +3 }, // Weight for 5th choice
                 ]
         },
         // QUESTION 2 //
@@ -31,14 +29,12 @@ function displayQuiz(){
                 "Sparkly treats and snacks",
                 "A waterproof adventure jacket",
                 "A premium brush and shampoo set",
-                "A potion that says “Just In Case...” ",
                 "A journal to record your memories"],
             weights: [
                 {protectionScore: +0, mindsetScore: +1 }, // Weight for 1st choice
                 {protectionScore: +1, mindsetScore: +0 }, // Weight for 2nd choice
                 {protectionScore: +1, mindsetScore: +2 }, // Weight for 3rd choice
-                {protectionScore: +2, mindsetScore: +2 }, // Weight for 4th choice
-                {protectionScore: +0, mindsetScore: +3 }, // Weight for 5th choice
+                {protectionScore: +0, mindsetScore: +3 }, // Weight for 4th choice
                 ]
         },
         // QUESTION 3 //
@@ -223,12 +219,23 @@ function displayQuiz(){
         if (progressText) {progressText.innerText = Math.round(progress) + "%";}
     }
 
+    ////////////////////////////////
+    // Event - begin intro button //
+    ////////////////////////////////
+
+    document.getElementById('begin-intro').addEventListener('click', function() {
+        console.log("clicked on walkies")
+        document.getElementById('home').style.display = 'none';
+        document.getElementById('intro-page').style.display = 'block';
+    });
+
     ///////////////////////////////
     // Event - begin quiz button //
     ///////////////////////////////
 
     document.getElementById('begin-quiz').addEventListener('click', function() {
-        document.getElementById('home').style.display = 'none';
+        console.log("clicked on pawceed")
+        document.getElementById('intro-page').style.display = 'none';
         document.getElementById('quiz-page').style.display = 'block';
     });
 
