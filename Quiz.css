@@ -50,19 +50,41 @@ h1 {
     color: #333;
     font-weight: 800;
     text-align: center;
-    max-width: 70%;
-    margin: 0 auto;
+    max-width: 100%; /* use full width */
+    margin: 0; margin-bottom: 16px;
+    line-height: 1.1; /* tighter line height for better visual balance */
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 16px;
     font-family: 'Gloria Hallelujah', cursive;
     color: #333;
     font-weight: 400;
     text-align: center;
-    max-width: 70%;
-    margin: 0 auto;
+    width: auto;
+    line-height: 1.4;
+    margin: 0 24px;
 
+}
+
+/*==============*/
+/* FLEX CLASSES */
+/*==============*/
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -83,7 +105,7 @@ h2 {
   align-items: center;   /* Vertically center the button */
 }
 
-#begin-quiz {
+#begin-quiz, #begin-intro {
   font-size: 1.8rem;
   font-weight: 600;
   padding: 1rem 6rem;
@@ -105,7 +127,14 @@ h2 {
   transition: transform 150ms;
 }
 
-/* -- choice buttons -- */
+#begin-intro:hover {
+  cursor: pointer;
+  background-color: #FFCD64;
+  color: #fbfbfb;
+  transform: none;
+  transition: transform 150ms;
+}
+/* -- choice buttons -- I AM HERE*/ 
 
 .choice-button {
     display: block;
@@ -171,10 +200,11 @@ h2 {
 /* OTHERS */
 /*========*/
 
-#quiz {
+#quiz, #intro {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 /*-- progress bar -- */
