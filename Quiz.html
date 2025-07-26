@@ -11,7 +11,6 @@
     />
     <title>Pawventure - Quiz</title>
     <link rel="stylesheet" href="Quiz.css" />
-
     <!-- Google tag -->
     <script
       async
@@ -26,7 +25,6 @@
       gtag("config", "G-W0BT0S586R");
     </script>
   </head>
-
   <body class="quiz-background">
     <div class="phone-container">
       <!-- QUIZ PAGE -->
@@ -36,31 +34,114 @@
           <div id="progress-container">
             <div id="progress-bar"></div>
           </div>
-
           <!-- Quiz image, question, choices-->
           <img id="question-image" src="" />
           <h2 id="question" style="margin-bottom: 8px">Loading question...</h2>
           <div id="choices" class="choices"></div>
         </div>
       </div>
+      
+      <!-- CONTACT FORM PAGE (shows before results) -->
+      <div id="contact-page" style="display: none; overflow-y: auto; max-height: 100vh; scrollbar-width: none; -ms-overflow-style: none;">
+        <h1>Protect Your Furry Friend! 🐾</h1>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h2 style="font-size: 16px; margin-bottom: 16px; line-height: 1.4;">
+            Hi there! We're a group passionate about spreading awareness of pet insurance in Singapore.
+          </h2>
+          <h2 style="font-size: 14px; margin-bottom: 16px; line-height: 1.4; color: #333;">
+            Many pet parents don't realize how pet insurance can be a game-changer until it's too late. We believe every furry friend deserves the best care possible!
+          </h2>
+          <h2 style="font-size: 16px; margin-bottom: 20px; font-weight: 600;">
+            Would you like to learn more about pet insurance options?
+          </h2>
+        </div>
+        
+        <form id="insurance-form" style="display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto;">
+          <input 
+            type="text" 
+            id="user-name" 
+            placeholder="Your Name" 
+            required
+            style="padding: 12px; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; text-align: center; width: 100%; box-sizing: border-box;"
+          />
+          
+          <input 
+            type="email" 
+            id="user-email" 
+            placeholder="Your Email" 
+            required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="Please enter a valid email address"
+            style="padding: 12px; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; text-align: center; width: 100%; box-sizing: border-box;"
+          />
+          
+          <div style="position: relative; width: 100%;">
+            <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-family: 'Gloria Hallelujah', cursive; font-size: 14px; color: #3b2921; z-index: 2;">+65</span>
+            <input 
+              type="tel" 
+              id="user-phone" 
+              placeholder="8123 4567" 
+              pattern="[0-9]{8}"
+              title="Please enter a valid 8-digit Singapore phone number"
+              maxlength="8"
+              style="padding: 12px 45px 12px 45px; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; text-align: center; width: 100%; box-sizing: border-box;"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              required
+            />
+          </div>
+          
+          <select 
+            id="pet-type"
+            required
+            style="padding: 12px; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; text-align: center; background-color: white; width: 100%; box-sizing: border-box;"
+          >
+            <option value="" disabled selected hidden>What pet do you have?</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Planning">Planning to get one</option>
+          </select>
+          
+          <button 
+            type="submit" 
+            id="submit-contact"
+            style="padding: 12px; background-color: #ffd989; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; font-weight: 600; color: #3b2921; cursor: pointer; width: 100%; box-sizing: border-box;"
+          >
+            Yes, Get Insurance Info!
+          </button>
+        </form>
+        
+        <div id="form-message" style="margin-top: 15px; font-size: 14px;"></div>
+        
+        <!-- Skip Option -->
+        <div style="text-align: center; margin-top: 25px;">
+          <span 
+            id="skip-to-results" 
+            style="font-family: 'Gloria Hallelujah', cursive; font-size: 14px; color: #666; cursor: pointer; text-decoration: underline;"
+            onclick="showResults()"
+          >
+            Skip → See My Results
+          </span>
+        </div>
+      </div>
 
       <!-- RESULT PAGE -->
-      <div id="result-page" style="display: none">
-        <!-- Result content will go here when quiz is complete -->
+      <div id="result-page" style="display: none; overflow-y: auto; max-height: 100vh; scrollbar-width: none; -ms-overflow-style: none;">
         <h1>Your Result!</h1>
         <div id="result-content"></div>
-        <div class="bigin-quiz-container">
+        
+        <div class="bigin-quiz-container" style="margin-top: 30px;">
           <button
-            style="margin-top: 20px"
             id="back-to-home"
             onclick="window.location.href='index.html'"
+            style="padding: 12px; background-color: #ffd989; border: 2px solid #ffd989; border-radius: 25px; font-family: 'Gloria Hallelujah', cursive; font-size: 14px; font-weight: 600; color: #3b2921; cursor: pointer; max-width: 300px; width: 100%; box-sizing: border-box;"
           >
             Try Again
           </button>
         </div>
       </div>
     </div>
-
+    
     <!-- Only load script.js on the quiz page -->
     <script src="script.js"></script>
   </body>

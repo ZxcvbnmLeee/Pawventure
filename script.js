@@ -4,6 +4,9 @@ console.log("Script loaded!");
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM loaded, starting quiz...");
 
+  // Replace with your Google Apps Script Web App URL
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkAT7bcJ4DRQ9Iq9WQxJyVM8EhOG7qQSlxM_r19PT0fnFpqusveR_YfcFlKNIDVrv-/exec';
+
   const questions = [
     // QUESTION 1 //
     {
@@ -49,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let experienceScore = 0;
   let mindsetScore = 0;
   let contactScore = 0;
+  let resultType = "";
+  let resultImage = "";
 
   // Display question image
   function displayQuestionImage(questionIndex) {
@@ -155,13 +160,31 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentQuestionIndex < questions.length) {
       displayCurrentQuestion();
     } else {
-      calculateAndDisplayResult();
+      showContactPage();
     }
   }
 
-  // Calculate and display result
-  function calculateAndDisplayResult() {
-    console.log("Quiz completed!");
+  // Show contact page after quiz completion
+  function showContactPage() {
+    console.log("Quiz completed! Showing contact page...");
+    
+    // Calculate result type and image for later use
+    calculateResult();
+    
+    // Hide quiz page, show contact page
+    const quizPage = document.getElementById("quiz-page");
+    const contactPage = document.getElementById("contact-page");
+
+    if (quizPage) quizPage.style.display = "none";
+    if (contactPage) contactPage.style.display = "block";
+
+    // Set up form submission handler
+    setupContactForm();
+  }
+
+  // Calculate result (but don't show yet)
+  function calculateResult() {
+    console.log("Calculating result...");
     console.log("Scores:", {
       protectionScore,
       budgetScore,
@@ -170,39 +193,132 @@ document.addEventListener("DOMContentLoaded", function () {
       contactScore,
     });
 
-    // Hide quiz page, show result page
-    const quizPage = document.getElementById("quiz-page");
-    const resultPage = document.getElementById("result-page");
-
-    if (quizPage) quizPage.style.display = "none";
-    if (resultPage) resultPage.style.display = "block";
-
-    // Determine which result image to show based on scores
-    let resultImage = "";
-
     // Logic to determine personality based on highest scores
     if (mindsetScore >= 4) {
       if (experienceScore >= 2) {
-        resultImage = "GreenBackground.png"; // The Experienced Emotional Guardian
+        resultImage = "GreenBackground.png";
+        resultType = "The Experienced Emotional Guardian";
       } else {
-        resultImage = "GreenBackground.png"; // The Loving Beginner
+        resultImage = "GreenBackground.png";
+        resultType = "The Loving Beginner";
       }
     } else if (protectionScore >= 2) {
-      resultImage = "GreenBackground.png"; // The Practical Protector
+      resultImage = "GreenBackground.png";
+      resultType = "The Practical Protector";
     } else if (experienceScore >= 2) {
-      resultImage = "GreenBackground.png"; // The Confident Caretaker
+      resultImage = "GreenBackground.png";
+      resultType = "The Confident Caretaker";
     } else {
-      resultImage = "GreenBackground.png"; // The Thoughtful Explorer
+      resultImage = "GreenBackground.png";
+      resultType = "The Thoughtful Explorer";
     }
+  }
 
-    // Display result image
+  // Show results page
+  function showResults() {
+    console.log("Showing results page...");
+    
+    // Hide contact page, show result page
+    const contactPage = document.getElementById("contact-page");
+    const resultPage = document.getElementById("result-page");
+
+    if (contactPage) contactPage.style.display = "none";
+    if (resultPage) resultPage.style.display = "block";
+
+    // Display result image and type
     const resultContent = document.getElementById("result-content");
     if (resultContent) {
       resultContent.innerHTML = `
         <img src="${resultImage}" class="cover-image" alt="Your Result" />
+        <h2 style="margin-top: 16px;">${resultType}</h2>
       `;
     }
   }
+
+  // Make showResults function globally available for the skip button
+  window.showResults = showResults;
+
+// Setup contact form submission - simple method
+function setupContactForm() {
+  const form = document.getElementById('insurance-form');
+  const messageDiv = document.getElementById('form-message');
+
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const name = document.getElementById('user-name').value;
+      const email = document.getElementById('user-email').value;
+      const phone = document.getElementById('user-phone').value;
+      const petType = document.getElementById('pet-type').value;
+
+      // Show loading message
+      messageDiv.innerHTML = "Sending your information... 🐾";
+      messageDiv.className = "";
+      
+      // Disable submit button
+      const submitBtn = document.getElementById('submit-contact');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      // Create a hidden form to submit to Google Apps Script
+      const hiddenForm = document.createElement('form');
+      hiddenForm.method = 'POST';
+      hiddenForm.action = GOOGLE_SCRIPT_URL;
+      hiddenForm.target = 'hidden_iframe';
+      hiddenForm.style.display = 'none';
+
+      // Create hidden iframe to receive the response
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // Add form fields
+      const fields = {
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'petType': petType,
+        'resultType': resultType,
+        'protectionScore': protectionScore,
+        'budgetScore': budgetScore,
+        'experienceScore': experienceScore,
+        'mindsetScore': mindsetScore,
+        'contactScore': contactScore,
+        'interestedInInsurance': 'true'
+      };
+
+      for (const key in fields) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        hiddenForm.appendChild(input);
+      }
+
+      // Submit the form
+      document.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+
+      // Clean up after a short delay
+      setTimeout(function() {
+        document.body.removeChild(hiddenForm);
+        document.body.removeChild(iframe);
+      }, 1000);
+
+      // Show success message
+      messageDiv.innerHTML = "Thank you! We'll contact you soon about pet insurance! 🎉";
+      messageDiv.className = "success";
+      
+      // Wait 2 seconds then show results
+      setTimeout(function() {
+        showResults();
+      }, 2000);
+    });
+  }
+}
 
   // Start the quiz automatically when page loads
   console.log("Starting first question...");
