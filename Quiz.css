@@ -8,7 +8,7 @@ body {
 }
 
 body {
-  background-image: url("frontpage.png");
+  background-image: url("../images/frontpage.png");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -99,8 +99,10 @@ h2 {
 
 .bigin-quiz-container {
   display: flex;
+  flex-direction: column;
   justify-content: center; /* Horizontally center the button */
   align-items: center; /* Vertically center the button */
+  gap: 15px;
 }
 
 #begin-quiz {
@@ -168,18 +170,22 @@ h2 {
 /* -- back to home button -- */
 #back-to-home,
 .share-button {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  padding: 1rem 6rem;
+  padding: 12px;
   text-align: center;
-  border: 0.1rem solid #ffd989;
-  margin-bottom: 1rem;
+  border: 2px solid #ffd989;
+  margin-bottom: 15px;
   text-decoration: none;
   font-family: "Gloria Hallelujah", cursive;
   color: #3b2921;
   background-color: #ffd989;
-  border-radius: 37px;
+  border-radius: 25px;
   margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
 
 /* -- share button -- */
@@ -203,14 +209,17 @@ h2 {
 }
 
 /* -- Add margin between the buttons -- */
-.share-button + #back-to-home {
-  margin-left: 20px;
-  align-items: center;
+.bigin-quiz-container .share-button {
+  margin-bottom: 15px;
+}
+
+.bigin-quiz-container #back-to-home {
+  margin-bottom: 0;
 }
 
 /* Special background for quiz pages only */
 body.quiz-background {
-  background-image: url("frontpage.png");
+  background-image: url("../images/frontpage.png");
 }
 
 #quiz {
@@ -248,8 +257,8 @@ body.quiz-background {
 }
 
 /* Contact Form Styles */
-#contact-form input:focus,
-#contact-form select:focus {
+#insurance-form input:focus,
+#insurance-form select:focus {
   outline: none;
   border-color: #ffcd64;
   box-shadow: 0 0 0 3px rgba(255, 217, 137, 0.3);
@@ -302,10 +311,45 @@ body.quiz-background {
   #insurance-form {
     max-width: 280px;
   }
-  
-  #contact-form input,
-  #contact-form select {
+
+  #insurance-form input,
+  #insurance-form select {
     font-size: 12px;
     padding: 10px;
   }
+}
+
+/* Override for contact and result pages to allow scrolling */
+#contact-page,
+#result-page {
+  overflow-y: auto;
+  max-height: 100vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Quiz page specific styles */
+.quiz-page {
+  display: block;
+  width: 100%;
+}
+
+/* Result content styling */
+#result-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#result-type {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0;
+  color: #3b2921;
+}
+
+#result-description {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 16px 0;
+  color: #333;
 }
