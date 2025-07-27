@@ -333,29 +333,39 @@ function displayQuiz(){
 
         // Scoring system //
         let resultImage = "";
-        if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 4 && mindsetScore <= 6 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+
+        if (protectionScore >= 10 && experienceScore >= 5) {
             resultImage = "R1.png"; // Prepared Pawrent
-        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 0 && experienceScore <= 3 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+        }
+        else if (experienceScore <= 3 && mindsetScore >= 3 && contactScore >= 1) {
             resultImage = "R2.png"; // Curious Newbie
-        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 0 && budgetScore <= 2 && contactScore === 2) {
+        }
+        else if (budgetScore >= 2 && mindsetScore >= 3 && contactScore >= 2) {
             resultImage = "R3.png"; // Spoil-Me Specialist
-        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 0 && mindsetScore <= 3 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+        }
+        else if (mindsetScore >= 6 && protectionScore <= 6) {
             resultImage = "R4.png"; // Zen Guardian
-        } else if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 13 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 1) {
+        }
+        else if (protectionScore >= 6 && experienceScore >= 3 && mindsetScore <= 4) {
             resultImage = "R5.png"; // Analyzer
-        } else if (protectionScore >= 13 && experienceScore >= 9 && mindsetScore >= 7 && mindsetScore <= 10 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+        }
+        else if (protectionScore >= 6 && experienceScore >= 4 && mindsetScore >= 5) {
             resultImage = "R6.png"; // Legacy Protector
-        } else if (protectionScore <= 5 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 4 && mindsetScore <= 6 && budgetScore >= 5 && contactScore === 0) {
+        }
+        else if (budgetScore <= 1 && contactScore <= 1) {
             resultImage = "R7.png"; // Budget Boss
-        } else if (protectionScore >= 6 && protectionScore <= 10 && experienceScore >= 4 && experienceScore <= 8 && mindsetScore >= 13 && budgetScore >= 2 && budgetScore <= 4 && contactScore === 2) {
+        }
+        else if (mindsetScore >= 7 && protectionScore <= 6 && experienceScore <= 4) {
             resultImage = "R8.png"; // Memory Maker
-        } else {
+        }
+        else {
             resultImage = "R9.png"; // Bubble Closeter (fallback)
         }
 
+
         // Inject image into result section
         const resultImageDiv = document.getElementById("result-image");
-        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" class="cover-image" alt="Your Persona Result" style="max-width: 100%;">`;
+        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" class="cover-image" alt="Your Persona Result">`;
 
         // Hide the quiz page, show the results page
         document.getElementById("quiz-page").style.display = "none";
@@ -381,7 +391,36 @@ function displayQuiz(){
 
 }
 
-
-
 // Start the quiz
 displayQuiz();
+
+////////////////////////
+// Event - Share Quiz //
+////////////////////////
+document.addEventListener("DOMContentLoaded", function () {
+    const shareButton = document.querySelector(".share-button");
+    console.log("Share button: ",shareButton);
+
+    if (shareButton) {
+        shareButton.addEventListener("click", function () {
+            const shareData = {
+                title: "Pawventure Quiz",
+                text: "I just found out what kind of pet guardian I am! 🐾 Try it too!",
+                url: window.location.href,
+            };
+
+            if (navigator.share) {
+                navigator
+                .share(shareData)
+                .then(() => console.log("Share successful"))
+                .catch((error) => console.log("Sharing failed", error));
+            } else {
+                // Fallback: copy link to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert("Link copied to clipboard! Share it with your friends 🐶🐱");
+                }); 
+            }
+        });
+    }
+});
+
