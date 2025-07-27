@@ -1,12 +1,13 @@
 html {
   font-size: 70%;
   overflow-y: scroll;       /* Enables vertical scrolling */
-  scrollbar-width: none;    /* Hides scrollbar on Firefox */
+  scroll-behavior: smooth;
 }
 /* For Chrome, Edge, Safari */
 #result-page::-webkit-scrollbar {
   display: none;            /* Hides scrollbar on WebKit browsers */
 }
+
 body {
   background-image: url("./images/frontpage.png");
   background-repeat: no-repeat;
@@ -17,7 +18,7 @@ body {
   align-items: center;
 
   height: 100vh;
-  overflow: hidden;
+  overflow: visible;
   margin: 0;
   padding: 0;
   font-family: "Gloria Hallelujah", cursive;
@@ -45,7 +46,7 @@ body {
   align-items: center; /* center horizontally */
   gap: 20px; /* space between children */
   text-align: center;
-  overflow: hidden;
+  overflow: visible;
 
 }
 
@@ -258,6 +259,13 @@ h2 {
   width: 20vw;        /* 20% of viewport width */
   max-width: 100%;    /* prevents overflow */
   height: auto;       /* maintain aspect ratio */
+}
+
+#result-image { /*Error: too big, now follow cover image first*/
+  display: block;
+  height: auto; 
+  max-width: 200px;
+  margin: 0 auto;
 }
 
 /* Special background for quiz pages only */
