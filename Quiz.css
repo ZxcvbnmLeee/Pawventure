@@ -24,6 +24,7 @@ body {
   font-size: 70%;
 }
 
+/* Updated phone container to allow scrolling */
 .phone-container {
   width: 400px;
   height: 100vh;
@@ -32,11 +33,19 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically */
-  align-items: center; /* center horizontally */
-  gap: 20px; /* space between children */
+  justify-content: flex-start; /* Changed from center to flex-start */
+  align-items: center;
+  gap: 20px;
   text-align: center;
-  overflow: hidden;
+  overflow-y: auto; /* Changed from hidden to auto */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+/* Hide scrollbar for Chrome/Safari */
+.phone-container::-webkit-scrollbar {
+  display: none;
 }
 
 .wrapper-main {
@@ -132,9 +141,10 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center */
   width: 100%;
   gap: 1rem;
+  flex-grow: 1; /* Allow it to grow */
 }
 
 /* Style for individual choice buttons created by JavaScript */
@@ -210,7 +220,7 @@ h2 {
 
 /* -- Add margin between the buttons -- */
 .bigin-quiz-container .share-button {
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 
 .bigin-quiz-container #back-to-home {
@@ -222,11 +232,14 @@ body.quiz-background {
   background-image: url("../images/frontpage.png");
 }
 
+/* Update the main quiz container */
 #quiz {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 100%; /* Allow it to expand */
+  padding-bottom: 20px; /* Add some bottom padding */
 }
 
 /*-- progress bar -- */
@@ -247,13 +260,15 @@ body.quiz-background {
   transition: width 0.3s ease-in-out;
 }
 
-/*-- question image -- */
-
+/* Update question image for better mobile experience */
 #question-image {
-  max-width: 100%;
-  height: auto;
-  width: 200px;
+  width: 100%; /* Takes full width of parent container */
+  max-width: 100%; /* Ensures it doesn't overflow */
+  height: auto; /* Maintains aspect ratio */
   margin-bottom: 16px;
+  object-fit: cover; /* Ensures good scaling behavior */
+  border-radius: 8px; /* Adds subtle rounded corners */
+  max-height: 40vh; /* Limit height to 40% of viewport to leave room for content */
 }
 
 /* Contact Form Styles */
@@ -300,38 +315,43 @@ body.quiz-background {
   font-weight: 600;
 }
 
-/* Hide scrollbars for contact and result pages */
+/* Quiz page specific styles - make it scrollable */
+.quiz-page {
+  display: block;
+  width: 100%;
+  min-height: 100%; /* Ensure it can expand */
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.quiz-page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Contact and result pages - scrollable with consistent styling */
+#contact-page,
+#result-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 20px;
+}
+
 #contact-page::-webkit-scrollbar,
 #result-page::-webkit-scrollbar {
   display: none;
 }
 
-/* Responsive adjustments for form */
-@media (max-width: 480px) {
-  #insurance-form {
-    max-width: 280px;
-  }
-
-  #insurance-form input,
-  #insurance-form select {
-    font-size: 12px;
-    padding: 10px;
-  }
-}
-
-/* Override for contact and result pages to allow scrolling */
+/* Add some padding to the bottom of all page content */
+.quiz-page,
 #contact-page,
 #result-page {
-  overflow-y: auto;
-  max-height: 100vh;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-/* Quiz page specific styles */
-.quiz-page {
-  display: block;
-  width: 100%;
+  padding-bottom: 40px;
 }
 
 /* Result content styling */
@@ -352,4 +372,27 @@ body.quiz-background {
   line-height: 1.4;
   margin: 16px 0;
   color: #333;
+}
+
+/* Responsive adjustments for form and mobile */
+@media (max-width: 480px) {
+  .phone-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 16px;
+  }
+
+  #question-image {
+    max-height: 35vh; /* Slightly smaller on mobile */
+  }
+
+  #insurance-form {
+    max-width: 280px;
+  }
+
+  #insurance-form input,
+  #insurance-form select {
+    font-size: 12px;
+    padding: 10px;
+  }
 }
