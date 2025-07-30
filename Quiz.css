@@ -34,6 +34,7 @@ body {
     align-items: center;
 } 
 
+/* Updated phone container to allow scrolling */
 .phone-container {
   width: 400px;
   height: 100vh;
@@ -42,12 +43,19 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically */
-  align-items: center; /* center horizontally */
-  gap: 20px; /* space between children */
+  justify-content: center;    /* or flex-start */
+  align-items: center;
+  gap: 20px;
   text-align: center;
-  overflow: visible;
+  overflow-y: auto;           /* Changed from hidden to auto */
+  overflow-x: hidden;         /* Prevent horizontal scroll */
+  scrollbar-width: none;      /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none;   /* Hide scrollbar for IE/Edge */
+}
 
+/* Hide scrollbar for Chrome/Safari */
+.phone-container::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {
@@ -109,6 +117,7 @@ h2 {
   display: flex;
   justify-content: center; /* Horizontally center the button */
   align-items: center;   /* Vertically center the button */
+  flex-direction: column; gap: 15px;
 }
 
 #begin-quiz, #begin-intro {
@@ -140,13 +149,14 @@ h2 {
   transform: none;
   transition: transform 150ms;
 }
-/* -- choice buttons -- I AM HERE*/ 
+/* -- choice buttons -- */ 
 .choices {
   display: flex;
   flex-direction: column;
-  align-items: center; justify-content: center;
+  align-items: center; justify-content: center; /* or flex-start*/ 
   width: 100%;
   gap: 1rem;
+  flex-grow: 1; /* Allow it to grow */
 }
 
 .choice-button {
@@ -177,19 +187,22 @@ h2 {
 
 /* -- back to home button -- */
 #back-to-home,.share-button {
-    font-size: 1.4rem;
-    font-weight: 600;
-    /*padding: 1rem 6rem;*/
-    width: 100px;
-    height: 45px;
-    text-align: center;
-    border: 0.1rem solid #FFD989;
-    margin: 0 auto; margin-bottom: 1rem;
-    text-decoration: none;
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #3B2921;
-    background-color: #FFD989;
-    border-radius: 37px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 12px;
+  text-align: center;
+  border: 2px solid #ffd989;
+  margin-bottom: 15px;
+  text-decoration: none;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #3b2921;
+  background-color: #ffd989;
+  border-radius: 25px;
+  margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
  
 /* -- share button -- */
@@ -204,10 +217,7 @@ h2 {
 }
 
 /* -- Add margin between the buttons -- */
-.share-button + #back-to-home {
-    margin-left: 20px;
-    align-items: center;
-}
+
 
 /*========*/
 /* OTHERS */
@@ -218,6 +228,8 @@ h2 {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 100%;     /* Allow it to expand */
+  padding-bottom: 20px; /* Add some bottom padding */
 }
 
 /*-- progress bar -- */
@@ -238,7 +250,7 @@ h2 {
 }
 
 #progress-text {
-  /*text-align: right;*/
+  text-align: right;
   font-size: 14px;
   color: #555;
   margin-top: 5px;
@@ -246,12 +258,23 @@ h2 {
 
 /*-- Images -- */
 
+/* Update question image for better mobile experience */
 #question-image {
+  width: 100%;           /* Takes full width of parent container */
+  max-width: 100%;       /* Ensures it doesn't overflow */
+  height: auto;          /* Maintains aspect ratio */
+  margin-bottom: 16px;
+  object-fit: contain;   /* Changed from cover to contain to show full image */
+  border-radius: 8px;    /* Adds subtle rounded corners */
+  max-height: 60vh;      /* Increased from 40vh to 60vh for taller images */
+}
+
+/*#question-image {
   max-width: 100%;
   height: auto;
   width: 200px;
   margin-bottom: 16px;
-}
+}*/
 
 .cover-image {
   display: block;
@@ -271,4 +294,135 @@ h2 {
 /* Special background for quiz pages only */
 body.quiz-background {
   background-image: url("./images/frontpage.png");
+}
+
+/*==============*/
+/* CONTACT FORM */
+/*==============*/
+
+#insurance-form input:focus,
+#insurance-form select:focus {
+  outline: none;
+  border-color: #ffcd64;
+  box-shadow: 0 0 0 3px rgba(255, 217, 137, 0.3);
+}
+
+#submit-contact:hover {
+  background-color: #ffcd64;
+  border-color: #ffcd64;
+  color: #fbfbfb;
+}
+
+#skip-contact {
+  font-size: 1.8rem;
+  font-weight: 600;
+  padding: 1rem 6rem;
+  text-align: center;
+  border: 0.1rem solid #ccc;
+  text-decoration: none;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #666;
+  background-color: #f5f5f5;
+  border-radius: 37px;
+  margin: 0 auto;
+}
+
+#skip-contact:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+  color: #333;
+}
+
+#form-message.success {
+  color: #28a745;
+  font-weight: 600;
+}
+
+#form-message.error {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+/* Quiz page specific styles - make it scrollable */
+.quiz-page {
+  display: block;
+  width: 100%;
+  min-height: 100%; /* Ensure it can expand */
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.quiz-page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Contact and result pages - scrollable with consistent styling */
+#contact-page,
+#result-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 20px;
+}
+
+#contact-page::-webkit-scrollbar,
+#result-page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Add some padding to the bottom of all page content */
+.quiz-page,
+#contact-page,
+#result-page {
+  padding-bottom: 40px;
+}
+
+/* Result content styling */
+#result-content {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#result-type {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0;
+  color: #3b2921;
+}
+
+#result-description {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 16px 0;
+  color: #333;
+}
+
+/*============================================*/
+/* Responsive adjustments for form and mobile */
+/*============================================*/
+
+@media (max-width: 480px) {
+  .phone-container {
+    width: 100vw;
+    height: 100vh;
+    padding: 16px;
+  }
+  
+  #question-image {
+    max-height: 35vh; /* Slightly smaller on mobile */
+  }
+  
+  #insurance-form {
+    max-width: 280px;
+  }
+
+  #insurance-form input, #insurance-form select {
+    font-size: 12px;
+    padding: 10px;
+  }
 }
