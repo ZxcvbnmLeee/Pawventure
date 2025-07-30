@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM loaded, starting quiz...");
 })
 
+// Replace with your Google Apps Script Web App URL (from Version 1)
+  const GOOGLE_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbx7S_mgrfSwg8p9DpTTB-79F0PWGtZMnfjDUbNTirkotqfMNooz6qmTpVnFuyjR-1Am/exec";
+
+
 function displayQuiz(){
     const questions = [
         // QUESTION 1 //
@@ -166,6 +171,8 @@ function displayQuiz(){
     let experienceScore = 0;    // new, moderate, experienced   | weights +0,1,2
     let mindsetScore = 0;       // practical, playful, legacy, emotional    | weights +0,1,2,3
     let contactScore =0;        // yes, maybe, no               | weights +0,1,2
+    let resultType = "";
+    let resultImage = "";
 
     ////////////////////////////
     // display question image //
@@ -314,11 +321,29 @@ function displayQuiz(){
 
         if (currentQuestionIndex < questions.length) {
             displayCurrentQuestion();
-        } else {calculateAndDisplayResult();}
+        } else {showContactPage();}
+    }
+
+    /////////////////////////////////////////////
+    // Show contact page after quiz completion //
+    /////////////////////////////////////////////
+
+    function showContactPage(){
+        console.log("Quiz completed! Showing contact page...");
+        // calculate result type & image for later use // --- didnt use
+
+        // Hide quiz page, show contact page
+        const quizPage = document.getElementById("quiz-page");
+        const contactPage = document.getElementById("contact-page");
+        if (quizPage) quizPage.style.display = "none";
+        if (contactPage) contactPage.style.display = "block";
+
+        // Set up form submission handler
+        setupContactForm();
     }
 
     ////////////////////////////////////////////
-    // Function to calculate & display result // ---------- I stopped here!
+    // Function to calculate & display result // 
     ////////////////////////////////////////////
     function calculateAndDisplayResult(){
         console.log("Quiz completed!");
@@ -332,46 +357,201 @@ function displayQuiz(){
 
 
         // Scoring system //
-        let resultImage = "";
 
         if (protectionScore >= 10 && experienceScore >= 5) {
             resultImage = "R1.png"; // Prepared Pawrent
+            resultType = "Prepared Pawrent";
         }
         else if (experienceScore <= 3 && mindsetScore >= 3 && contactScore >= 1) {
             resultImage = "R2.png"; // Curious Newbie
+            resultType = "Curious Newbie";
         }
         else if (budgetScore >= 2 && mindsetScore >= 3 && contactScore >= 2) {
             resultImage = "R3.png"; // Spoil-Me Specialist
+            resultType = "Spoil-Me Specialist";
         }
         else if (mindsetScore >= 6 && protectionScore <= 6) {
             resultImage = "R4.png"; // Zen Guardian
+            resultType = "Zen Guardian";
         }
         else if (protectionScore >= 6 && experienceScore >= 3 && mindsetScore <= 4) {
             resultImage = "R5.png"; // Analyzer
+            resultType = "Analyzer";
         }
         else if (protectionScore >= 6 && experienceScore >= 4 && mindsetScore >= 5) {
             resultImage = "R6.png"; // Legacy Protector
+            resultType = "Legacy Protector";
         }
         else if (budgetScore <= 1 && contactScore <= 1) {
             resultImage = "R7.png"; // Budget Boss
+            resultType = "Budget Boss";
         }
         else if (mindsetScore >= 7 && protectionScore <= 6 && experienceScore <= 4) {
             resultImage = "R8.png"; // Memory Maker
+            resultType = "Memory Maker";
         }
         else {
             resultImage = "R9.png"; // Bubble Closeter (fallback)
+            resultType = "Bubble Closeter";
         }
 
+        // Send quiz results to Google Sheets (for skipped contact form)
+        sendQuizResults();
 
-        // Inject image into result section
+        // Display image & type into result section
         const resultImageDiv = document.getElementById("result-image");
-        resultImageDiv.innerHTML = `<img src="./images/${resultImage}" class="cover-image" alt="Your Persona Result">`;
+        if (resultImageDiv) {resultImageDiv.innerHTML = `<img src="./images/${resultImage}" class="cover-image" alt="Your Persona Result">`;}
+        const resultTypeDiv = document.getElementById("result-type");
+        if (resultTypeDiv){resultTypeDiv.textContent = resultType;}
 
-        // Hide the quiz page, show the results page
-        document.getElementById("quiz-page").style.display = "none";
+        // Hide the contact page, show the result page
+        document.getElementById("contact-page").style.display = "none";
         document.getElementById("result-page").style.display = "block";
     }
 
+    ////////////////////////////////////////
+    // Send quiz results to Google Sheets // (for users who skip contact form) 
+    ////////////////////////////////////////
+
+    function sendQuizResults(){
+        console.log("Sending quiz results to Google Sheets...");
+
+        // Create a hidden form to submit to Google Apps Script
+        const hiddenForm = document.createElement("form");
+        hiddenForm.method = "POST";
+        hiddenForm.action = GOOGLE_SCRIPT_URL;
+        hiddenForm.target = "hidden_iframe_results";
+        hiddenForm.style.display = "none";
+
+        // Create hidden iframe to receive the response
+        const iframe = document.createElement("iframe");
+        iframe.name = "hidden_iframe_results";
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+
+        // Add form fields - include a flag to indicate this is quiz results only
+        const fields = {
+            resultType: resultType,
+            protectionScore: protectionScore,
+            budgetScore: budgetScore,
+            experienceScore: experienceScore,
+            mindsetScore: mindsetScore,
+            contactScore: contactScore,
+            submissionType: "quiz_results_only", // Flag to indicate this goes to results sheet
+            timestamp: new Date().toISOString(),
+            interestedInInsurance: "false",
+        };
+
+        for (const key in fields) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = fields[key];
+            hiddenForm.appendChild(input);
+        }
+
+        // Submit the form
+        document.body.appendChild(hiddenForm);
+        hiddenForm.submit();
+
+        // Clean up after a short delay
+        setTimeout(function () {
+            document.body.removeChild(hiddenForm);
+            document.body.removeChild(iframe);
+        }, 1000);
+
+    }
+
+    ///////////////////////////////////
+    // Setup contact form submission //
+    ///////////////////////////////////
+
+    function setupContactForm(){
+        const form = document.getElementById("insurance-form");
+        const messageDiv = document.getElementById("form-message");
+
+        if (form) {
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // Get form data
+                const name = document.getElementById("user-name").value;
+                const email = document.getElementById("user-email").value;
+                const phone = document.getElementById("user-phone").value;
+                const petType = document.getElementById("pet-type").value;
+
+                // Show loading message
+                messageDiv.innerHTML = "Sending your information... 🐾";
+                messageDiv.className = "";
+
+                // Disable submit button
+                const submitBtn = document.getElementById("submit-contact");
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Sending...";
+
+                // Create a hidden form to submit to Google Apps Script
+                const hiddenForm = document.createElement("form");
+                hiddenForm.method = "POST";
+                hiddenForm.action = GOOGLE_SCRIPT_URL;
+                hiddenForm.target = "hidden_iframe";
+                hiddenForm.style.display = "none";
+
+                // Create hidden iframe to receive the response
+                const iframe = document.createElement("iframe");
+                iframe.name = "hidden_iframe";
+                iframe.style.display = "none";
+                document.body.appendChild(iframe);
+
+                // Add form fields - include a flag to indicate this goes to contact sheet
+                const fields = {
+                name: name,
+                email: email,
+                phone: phone,
+                petType: petType,
+                resultType: resultType,
+                protectionScore: protectionScore,
+                budgetScore: budgetScore,
+                experienceScore: experienceScore,
+                mindsetScore: mindsetScore,
+                contactScore: contactScore,
+                submissionType: "contact_form", // Flag to indicate this goes to contact sheet
+                timestamp: new Date().toISOString(),
+                interestedInInsurance: "true",
+                };
+
+                for (const key in fields) {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = key;
+                input.value = fields[key];
+                hiddenForm.appendChild(input);
+                }
+
+                // Submit the form
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+
+                // Clean up after a short delay
+                setTimeout(function () {
+                document.body.removeChild(hiddenForm);
+                document.body.removeChild(iframe);
+                }, 1000);
+
+                // Show success message
+                messageDiv.innerHTML =
+                "Thank you! We'll contact you soon about pet insurance! 🎉";
+                messageDiv.className = "success";
+
+                // Wait 2 seconds then show results
+                setTimeout(function () {
+                    calculateAndDisplayResult();
+                }, 2000);
+            });
+        }
+    }
+
+    // Make calculateAndDisplayResult() globally available for the skip button //
+    window.calculateAndDisplayResult = calculateAndDisplayResult;
 
     /////////////////////////////////////////////////////
     // Event - display the 1st qn when the quiz starts //
